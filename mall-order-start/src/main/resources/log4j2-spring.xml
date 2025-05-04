@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="INFO" monitorInterval="30">
+
+    <Properties>
+        <Property name="PROJECT_NAME">${spring:spring.application.name}</Property>
+        <Property name="LOG_PATH">${spring:logging.file.path}</Property>
+        <Property name="PATTERN">[%d{yyyy-MM-dd HH:mm:ss,SSS}] [%c{1.}::%M] [%t] [%p]: %m%n</Property>
+    </Properties>
+
+    <Appenders>
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern="${PATTERN}"/>
+        </Console>
+        <RollingFile name="RollingFile" fileName="${LOG_PATH}/${PROJECT_NAME}.log"
+                     filePattern="${LOG_PATH}/${date:yyyy-MM-dd}/${PROJECT_NAME}-%d{yyyy-MM-dd}-%i.log">
+            <PatternLayout pattern="${PATTERN}"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1" modulate="true"/>
+                <SizeBasedTriggeringPolicy size="100 MB"/>
+            </Policies>
+        </RollingFile>
+    </Appenders>
+
+    <Loggers>
+        <Root level="info">
+            <appender-ref ref="Console"/>
+            <appender-ref ref="RollingFile"/>
+        </Root>
+        <!-- Hibernate Validator Logger -->
+        <Logger name="org.hibernate.validator" level="info" additivity="false">
+            <appender-ref ref="Console"/>
+            <appender-ref ref="RollingFile"/>
+        </Logger>
+    </Loggers>
+</Configuration>

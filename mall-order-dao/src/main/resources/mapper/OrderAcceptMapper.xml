@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dohhub.mall.order.dao.mapper.OrderAcceptMapper">
+
+    <resultMap id="BaseResultMap" type="com.dohhub.mall.order.dao.model.OrderAcceptDO">
+        <id property="id" column="id"/>
+        <result property="createdAt" column="created_at"/>
+        <result property="updatedAt" column="updated_at"/>
+        <result property="createdBy" column="created_by"/>
+        <result property="updatedBy" column="updated_by"/>
+        <result property="requestNo" column="request_no"/>
+        <result property="requestSystem" column="request_system"/>
+        <result property="requestDate" column="request_date"/>
+        <result property="orderNo" column="order_no"/>
+        <result property="orderAmt" column="order_amt"/>
+        <result property="orderNum" column="order_num"/>
+        <result property="orderStatus" column="order_status"/>
+        <result property="deleted" column="deleted"/>
+    </resultMap>
+
+    <select id="selectById" resultMap="BaseResultMap">
+        SELECT * FROM t_order_accept WHERE id = #{id}
+    </select>
+
+</mapper>
