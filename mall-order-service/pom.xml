@@ -6,7 +6,7 @@
     <parent>
         <groupId>com.dohhub</groupId>
         <artifactId>mall-order</artifactId>
-        <version>1.0.0-SNAPSHOT</version>
+        <version>1.0.0</version>
     </parent>
 
     <artifactId>mall-order-service</artifactId>
@@ -21,7 +21,7 @@
         <dependency>
             <groupId>com.dohhub</groupId>
             <artifactId>mall-order-dao</artifactId>
-            <version>1.0.0-SNAPSHOT</version>
+            <version>1.0.0</version>
         </dependency>
     </dependencies>
 
