@@ -18,8 +18,17 @@
         <result property="deleted" column="deleted"/>
     </resultMap>
 
+
     <select id="selectById" resultMap="BaseResultMap">
         SELECT * FROM t_order_accept WHERE id = #{id}
     </select>
+
+    <insert id="insert" parameterType="com.dohhub.mall.order.dao.model.OrderAcceptDO" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO t_order_accept
+        (created_at, updated_at, created_by, updated_by, request_no, request_system, request_date, order_no, order_amt,
+         order_num, order_status)
+        VALUES (#{createdAt}, #{updatedAt}, #{createdBy}, #{updatedBy}, #{requestNo}, #{requestSystem}, #{requestDate},
+                #{orderNo}, #{orderAmt}, #{orderNum}, #{orderStatus})
+    </insert>
 
 </mapper>

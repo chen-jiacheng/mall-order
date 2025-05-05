@@ -105,6 +105,8 @@ public enum BusinessCodeEnum {
      */
     ORDER_PAID_PROCESSING("5016", "订单已支付异常"),
 
+    ORDER_ACCEPT_ERROR("5017", "订单受理失败"),
+
     ;
 
     private String code;

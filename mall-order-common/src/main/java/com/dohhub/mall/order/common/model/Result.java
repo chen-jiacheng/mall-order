@@ -60,6 +60,9 @@ public class Result<T> implements Serializable {
     public static <T> Result<T> success(T data) {
         return new Result<>("200", "ok", data);
     }
+    public static <T> Result<T> success() {
+        return new Result<>("200", "ok", null);
+    }
     public static <T> Result<T> error(String code, String msg) {
         return new Result<>(code, msg);
     }

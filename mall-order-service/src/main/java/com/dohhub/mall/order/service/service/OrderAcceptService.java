@@ -12,4 +12,5 @@ public interface OrderAcceptService {
 
     OrderAcceptBO getOrderAcceptById(Long id);
 
+    void acceptOrder(OrderAcceptBO orderAcceptBO);
 }

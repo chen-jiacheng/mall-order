@@ -32,4 +32,12 @@ public class OrderAcceptServiceImpl implements OrderAcceptService {
         }
         return null;
     }
+
+    @Override
+    public void acceptOrder(OrderAcceptBO orderAcceptBO) {
+        OrderAcceptDO orderAcceptDO = new OrderAcceptDO();
+        BeanUtils.copyProperties(orderAcceptBO, orderAcceptDO);
+        orderAcceptMapper.insert(orderAcceptDO);
+        log.info("insert order accept success, id: {}", orderAcceptDO.getId());
+    }
 }

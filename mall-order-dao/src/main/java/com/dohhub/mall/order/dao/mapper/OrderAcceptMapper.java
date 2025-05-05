@@ -13,4 +13,5 @@ public interface OrderAcceptMapper {
     OrderAcceptDO selectById(Long id);
 
 
+    int insert(OrderAcceptDO orderAcceptDO);
 }

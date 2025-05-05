@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.*;
 /**
  * Created by chenjiacheng on 2025/5/4 23:14
  *
- *
  * @author chenjiacheng
  * @since 1.0.0
  */
@@ -27,26 +26,36 @@ public class MallOrderController {
     @Autowired
     private OrderAcceptService orderAcceptService;
 
-    @RequestMapping(method = RequestMethod.POST,path = "/accept")
+    @RequestMapping(method = RequestMethod.POST, path = "/accept")
     public Result<String> accept(@RequestBody OrderAcceptDTO orderAcceptDTO) {
-        log.info("accept order");
-        return new Result<>("200", "ok", "success");
-    }
-
-    @RequestMapping(method = RequestMethod.GET,path = "/getOrderAccept")
-    public Result<OrderAcceptDTO> getOrderAccept(@RequestParam("id") Long id) {
-        log.info("getOrderAccept id: {}", id);
-        OrderAcceptBO orderAcceptBO = orderAcceptService.getOrderAcceptById(id);
-        if (orderAcceptBO == null) {
-            return Result.error(BusinessCodeEnum.ORDER_NOT_EXIST.getCode(), BusinessCodeEnum.ORDER_NOT_EXIST.getMsg());
+        try {
+            log.info("accept order");
+            OrderAcceptBO orderAcceptBO = new OrderAcceptBO();
+            BeanUtils.copyProperties(orderAcceptDTO, orderAcceptBO);
+            orderAcceptService.acceptOrder(orderAcceptBO);
+            return Result.success("success");
+        } catch (Exception e) {
+            log.error("accept order error: ", e);
+            return Result.error(BusinessCodeEnum.ORDER_ACCEPT_ERROR.getCode(), BusinessCodeEnum.ORDER_ACCEPT_ERROR.getMsg());
         }
-        OrderAcceptDTO orderAcceptDTO = new OrderAcceptDTO();
-        BeanUtils.copyProperties(orderAcceptBO, orderAcceptDTO);
-        log.info("getOrderAccept orderAcceptDTO: {}", orderAcceptDTO);
-        return Result.success(orderAcceptDTO);
     }
 
-
-
+    @RequestMapping(method = RequestMethod.GET, path = "/getOrderAccept")
+    public Result<OrderAcceptDTO> getOrderAccept(@RequestParam("id") Long id) {
+        try {
+            log.info("getOrderAccept id: {}", id);
+            OrderAcceptBO orderAcceptBO = orderAcceptService.getOrderAcceptById(id);
+            if (orderAcceptBO == null) {
+                return Result.error(BusinessCodeEnum.ORDER_NOT_EXIST.getCode(), BusinessCodeEnum.ORDER_NOT_EXIST.getMsg());
+            }
+            OrderAcceptDTO orderAcceptDTO = new OrderAcceptDTO();
+            BeanUtils.copyProperties(orderAcceptBO, orderAcceptDTO);
+            log.info("getOrderAccept orderAcceptDTO: {}", orderAcceptDTO);
+            return Result.success(orderAcceptDTO);
+        } catch (Exception e) {
+            log.error("getOrderAccept error: ", e);
+            return Result.error(BusinessCodeEnum.SYSTEM_EXCEPTION.getCode(), BusinessCodeEnum.SYSTEM_EXCEPTION.getMsg());
+        }
+    }
 
 }
